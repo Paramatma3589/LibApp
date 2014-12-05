@@ -1,0 +1,105 @@
+WBS
+
+JESSI
+Set up Application environment          DONE
+Bib:
+	NFC Chip                            STARTED
+	Book Detail                         DONE
+	Contact/oeffnungzeiten              DONE
+Feedback                                DONE
+Web Page:
+	Add Book                            STARTED
+	Add Address                         DONE
+	Add Rooms                           DONE
+Design Study                            DONE
+News                                    DONE
+Mensa Plan                              DONE
+Schedule Plan                           STARTED
+Search							more or less finished
+
+
+
+BLEDI
+Bib:
+	Library Map
+Campus Plan
+Schedule Plan                           (STARTED BY JESSI)
+
+
+
+PARAM
+LibApp Use Cases						
+Bib:
+
+	insert entries to database (Rooms, Kontakts, Bibs)	started
+Address Book							started
+ER-Model							
+setup database and webserver					done
+
+
+
+features:
+- Feedback/Contact -> contact form 3 fields
+- Campus Plan -> use links from wiki and setup building pics that can be zoomed to other pics(details?)
+- Address Book of Technikum Wien - dbase table with lecturers names and call numbers
+- Schedule Plan (Nice to have) - cis schedule - a pic with a link to cis->responsive or just pic showing up
+- Mensa Menu (Nice to have) - menu frame in-app and in-webpage
+eg http://www.miaandmason.com/start/images/Speiseplan%20FH%20Technikum%20KW%2046.JPG
+- News of Technikum Wien (Nice to have) - responsive blog
+http://www.technikum-wien.at/fh/news/
+- scan a book via a NFC Chip:
+getcode from chip->pass request to run php file on webserver->php file runs select statement->
+output goes back to app
+- a map, where you can search for a book or a position/can also be opened from the catalog search:
+when seeing the search results, 1 field is "book position" and its clickable->leads to eg TIFF image / ascii 
+art-like "book location on shelf" and a part of the pic is changeable and shows info eg library area, 
+bookcupboard c, etc
+
+|______|   |_______|  << bookshelf
+
+_______     _______
+|______|   |___||___| << bookshelf
+
+- information part where the opening times and contact persons are deposited:
+image that leads to static screen of kontaktdaten
+
+
+PARAM
+**setup an mysql
+db: bypara5_libapp
+ip: 205.134.241.52
+
+**get and insert 100 entries from library
+undone!!
+**setup external mysql access thru mysql tool for everybody
+done
+
+**domainname: libapp.byparamatma.com
+done
+**domainspace +ftp
+done
+
+
+DATAMODEL:
+
+Book:
+id
+Titel
+Puplisher
+year
+isbn
+nfc
+language
+
+tag:
+id:
+name
+
+Shelf:
+ID
+number
+
+Author:
+id
+name
+last name

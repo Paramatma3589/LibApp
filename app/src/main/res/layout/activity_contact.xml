@@ -1,0 +1,79 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/back" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dip"
+        android:weightSum="1.0" >
+
+        <TextView
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#666666"
+            android:gravity="center"
+            android:padding="5dip"
+            android:text="Searching for Name Emails or Phone number."
+            android:textColor="#FFFFFF" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip" >
+
+            <EditText
+                android:id="@+id/editSearchText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:hint="Phonenumber/ Name / Email"
+                android:inputType="text"
+                android:text=""
+                android:textColor="#000000"
+                android:textColorHint="#DDDDDD" >
+
+                <requestFocus android:layout_width="wrap_content" >
+                </requestFocus>
+            </EditText>
+
+            <Button
+                android:id="@+id/FeedbackButton"
+                style="@style/AppTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="#444444"
+                android:onClick="sendContact"
+                android:text="SEND"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFEEEE"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/response"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:background="#444444"
+            android:gravity="center"
+            android:padding="5dip"
+            android:text="no_entry"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#e2001a" />
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,159 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/BookSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#444444"
+            android:padding="10dp"
+            android:text="Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFEEEE"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/BibHiddenSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/BookSearch"
+            android:layout_alignRight="@+id/BookSearch"
+            android:layout_below="@+id/BookSearch"
+            android:background="#666666"
+            android:padding="10dp" />
+        <EditText
+            android:id="@+id/BibEditSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/FeedbackTextEmail"
+            android:layout_alignLeft="@+id/BibHiddenSearch"
+            android:layout_alignRight="@+id/BibHiddenSearch"
+            android:layout_below="@+id/BookSearch"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="#FFFFFF" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/FeedbackTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="@+id/BibHiddenSearch"
+            android:layout_alignParentTop="@+id/BibHiddenSearch"
+            android:layout_below="@+id/BibHiddenSearch"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#444444"
+            android:padding="10dp"
+            android:text="EMAIL"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFEEEE"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/FeedbackHiddenEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/FeedbackTextEmail"
+            android:layout_alignRight="@+id/FeedbackTextEmail"
+            android:layout_below="@+id/FeedbackTextEmail"
+            android:background="#666666"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/FeedbackEditEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/FeedbackTextNachricht"
+            android:layout_alignLeft="@+id/FeedbackHiddenEmail"
+            android:layout_alignRight="@+id/FeedbackHiddenEmail"
+            android:layout_below="@+id/FeedbackTextEmail"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textColor="#FFFFFF" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/FeedbackTextNachricht"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/FeedbackHiddenEmail"
+            android:layout_alignRight="@+id/FeedbackHiddenEmail"
+            android:layout_below="@+id/FeedbackHiddenEmail"
+            android:layout_marginTop="10dp"
+            android:background="#444444"
+            android:linksClickable="true"
+            android:padding="10dp"
+            android:text="MESSAGE"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFEEEE"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/FeedbackHiddenNachricht"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignLeft="@+id/FeedbackTextNachricht"
+            android:layout_alignRight="@+id/FeedbackTextNachricht"
+            android:layout_below="@+id/FeedbackTextNachricht"
+            android:background="#666666" />
+
+        <EditText
+            android:id="@+id/FeedbackEditNachricht"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@+id/FeedbackHiddenNachricht"
+            android:layout_alignLeft="@+id/FeedbackHiddenNachricht"
+            android:layout_alignRight="@+id/FeedbackHiddenNachricht"
+            android:layout_alignTop="@+id/FeedbackHiddenNachricht"
+            android:background="@null"
+            android:ems="10"
+            android:gravity="top|center_vertical"
+            android:inputType="textLongMessage|textMultiLine"
+            android:padding="5dp"
+            android:singleLine="false"
+            android:textColor="#FFFFFF" >
+
+        </EditText>
+
+        <Button
+            android:id="@+id/FeedbackButton"
+            style="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/FeedbackHiddenNachricht"
+            android:layout_alignRight="@+id/FeedbackHiddenNachricht"
+            android:layout_below="@+id/FeedbackHiddenNachricht"
+            android:layout_marginTop="20dp"
+            android:background="#444444"
+            android:onClick="sendFeedback"
+            android:text="SEND"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFEEEE"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</ScrollView>
