@@ -105,6 +105,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.goertz.libraryapp.SearchActivity" />
         </activity>
+        <activity
+            android:name=".BarCodeScan"
+            android:label="@string/title_activity_bar_code_scan"
+            android:parentActivityName=".BookActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.goertz.libraryapp.BookActivity" />
+        </activity>
     </application>
 
 </manifest>

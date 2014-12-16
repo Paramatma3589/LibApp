@@ -21,6 +21,8 @@ public class BookDetails extends ActionBarActivity {
     TextView publishedText;
     TextView languageText;
     TextView yearText;
+    TextView shelfText;
+    TextView detailText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,8 @@ public class BookDetails extends ActionBarActivity {
         publishedText = (TextView) findViewById(R.id.publishedText);
         languageText = (TextView) findViewById(R.id.languageText);
         yearText = (TextView) findViewById(R.id.yearText);
+        shelfText = (TextView) findViewById(R.id.shelfText);
+        detailText = (TextView) findViewById(R.id.detailText);
         Intent intent = getIntent();
         String message = intent.getStringExtra(BibScan.EXTRA_MESSAGE);
         if(message != null) {
@@ -41,6 +45,9 @@ public class BookDetails extends ActionBarActivity {
                 e.printStackTrace();
             }
         }
+        else{
+
+        }
 
 
     }
@@ -50,14 +57,21 @@ public class BookDetails extends ActionBarActivity {
             final String ISBN = "isbn";
             final String LANGUAGE = "language";
             final String YEAR = "year";
+            final String FIRSTNAME = "firstname";
+            final String LASTNAME = "lastname";
+        final String SHELF = "shelfName";
+        final String DESC = "description";
 
+        Log.e(LOG_TAG, json);
         JSONObject bookJson = new JSONObject(json);
 
         titleText.setText(bookJson.getString(TITEL));
-        isbnText.setText(bookJson.getString(ISBN));
-        languageText.setText(bookJson.getString(LANGUAGE));
-        yearText.setText(bookJson.getString(YEAR));
-
+        isbnText.setText("ISBN: " +bookJson.getString(ISBN));
+        languageText.setText("Language: " +bookJson.getString(LANGUAGE));
+        yearText.setText("Year: " + bookJson.getString(YEAR));
+        publishedText.setText("Author: " + bookJson.getString(FIRSTNAME) +" "+ bookJson.getString(LASTNAME));
+        shelfText.setText("Shelf: " + bookJson.getString(SHELF));
+        detailText.setText("DESC: " + bookJson.getString(DESC));
 
     }
 

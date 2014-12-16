@@ -20,5 +20,6 @@
     <string name="title_activity_bib_scan">bibScan</string>
     <string name="title_activity_book_details">Book_details</string>
     <string name="title_activity_book_result">BookResultActivity</string>
+    <string name="title_activity_bar_code_scan">BarCodeScan</string>
 
 </resources>

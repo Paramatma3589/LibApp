@@ -89,10 +89,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="LANGUAGE" />
+
+                <TextView
+                    android:id="@+id/shelfText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="SHELF" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/onlineText"
+                android:id="@+id/detailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

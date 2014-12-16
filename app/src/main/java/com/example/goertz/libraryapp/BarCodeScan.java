@@ -6,14 +6,15 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,59 +33,65 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+public class BarCodeScan extends ActionBarActivity {
 
-public class SearchActivity extends ActionBarActivity {
+    private final String LOG_TAG = BarCodeScan.class.getSimpleName();
 
-    public final static String EXTRA_MESSAGE = "MESSAGE";
-    private final String LOG_TAG = SearchActivity.class.getSimpleName();
-    /** Contains the EditText for the name **/
-    EditText searchEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_bar_code_scan);
 
-        // Show the back button in the action bar.
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Get the text fields containing the message and the name of the sender
-        searchEdit = (EditText) findViewById(R.id.BibEditSearch);
-
+        IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+        scanIntegrator.initiateScan();
     }
 
-    public void sendSearch(View view) {
-        String search = searchEdit.getText().toString();
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanningResult != null) {
+            String scanContent = scanningResult.getContents();
+            // String scanFormat = scanningResult.getFormatName();
+            Log.e(LOG_TAG,"gescannt: "+scanContent);
+            DatabaseRequest(scanContent);
+            //Toast toast = Toast.makeText(getApplicationContext(),
+             //       scanContent, Toast.LENGTH_SHORT);
+            //toast.show();
 
-        // Check if both fields are filled, when not show an error
-        if (search.equals("")) {
-            Toast.makeText(getApplicationContext(),
-                    "Please enter a Text!", Toast.LENGTH_SHORT).show();
-            Log.d(LOG_TAG, "Text Missed ");
-        } else {
-            // Send the feedback to the given url
-            String url = "http://libapp.byparamatma.com/appsearch.php";
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "No scan data received!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
-            // Build get parameters
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(3);
-            nameValuePair.add(new BasicNameValuePair("recipient", "app"));
-            nameValuePair.add(new BasicNameValuePair("search", search));
-            SendSearchTask myTask = new SendSearchTask(this, nameValuePair);
+    }
+    private void DatabaseRequest(String BarCode) {
 
-            // URL must be encoded because it can't contain white spaces etc.
-            try {
-                String encoded = URLEncoder.encode(url, "utf-8");
-                myTask.execute(new String[] {encoded});
-            } catch (UnsupportedEncodingException e) {
-                Log.d(LOG_TAG, "Error while processing the Message."+e.getMessage());
-                Toast.makeText(this, "Error while processing the Message.", Toast.LENGTH_SHORT).show();
-            }
+        // Send the feedback to the given url
+        String url = "http://libapp.byparamatma.com/appBarCode.php";
+
+        // Build get parameters
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(3);
+        nameValuePair.add(new BasicNameValuePair("recipient", "app"));
+        nameValuePair.add(new BasicNameValuePair("barcode", BarCode));
+
+        SendBarCodeTask myTask = new SendBarCodeTask(this, nameValuePair);
+
+        // URL must be encoded because it can't contain white spaces etc.
+        try {
+            String encoded = URLEncoder.encode(url, "utf-8");
+            myTask.execute(new String[]{encoded});
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(this, "Error while processing the Message.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.bar_code_scan, menu);
         return true;
     }
 
@@ -100,21 +107,26 @@ public class SearchActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public class SendSearchTask extends AsyncTask<String, Void, String> {
-        /** progress dialog to show user that the sending is processing. */
+    public class SendBarCodeTask extends AsyncTask<String, Void, String> {
+        /**
+         * progress dialog to show user that the sending is processing.
+         */
         private ProgressDialog dialog;
-        /** The context of this task **/
+        /**
+         * The context of this task *
+         */
         private Context context;
-        /** Parameters for the URL **/
+        /**
+         * Parameters for the URL *
+         */
         private List<NameValuePair> parameters;
 
         /**
          * Constructor
-         *
+         * <p/>
          * Initializes the progress dialog and sets the context and the parameters.
          */
-        public SendSearchTask(Context context, List<NameValuePair> parameters) {
+        public SendBarCodeTask(Context context, List<NameValuePair> parameters) {
             this.context = context;
             dialog = new ProgressDialog(context);
             this.parameters = parameters;
@@ -126,7 +138,7 @@ public class SearchActivity extends ActionBarActivity {
         protected void onPreExecute() {
             if (isOnline()) {
                 this.dialog.show();
-                this.dialog.setMessage("Processing Search....");
+                this.dialog.setMessage("Processing BarCode....");
             }
         }
 
@@ -135,13 +147,16 @@ public class SearchActivity extends ActionBarActivity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            Intent intent = new Intent(getApplicationContext(), BookResultActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, success);
+
+
+            Intent intent = new Intent(getApplicationContext(), BookDetails.class);
+            intent.putExtra(BibScan.EXTRA_MESSAGE, success);
             startActivity(intent);
 
 
+            // Log.v(LOG_TAG, "RESULT " + success);
+            //mTextView.setText(success);
         }
-
 
         protected String doInBackground(final String... urls) {
             if (isOnline()) {
@@ -161,7 +176,7 @@ public class SearchActivity extends ActionBarActivity {
 
             // Initialize HttpClient and HttpPost
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://libapp.byparamatma.com/appsearch.php");
+            HttpPost httppost = new HttpPost("http://libapp.byparamatma.com/appBarCode.php");
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(parameters));
@@ -183,10 +198,8 @@ public class SearchActivity extends ActionBarActivity {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                Log.d(LOG_TAG, "ONLINE");
                 return true;
             }
-            Log.d(LOG_TAG, "OFFLINE");
             return false;
 
         }

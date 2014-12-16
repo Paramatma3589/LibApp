@@ -1,12 +1,16 @@
 package com.example.goertz.libraryapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 
 public class BookActivity extends ActionBarActivity implements View.OnClickListener {
@@ -23,6 +27,8 @@ public class BookActivity extends ActionBarActivity implements View.OnClickListe
         btnbookmap.setOnClickListener(this);
         ImageButton btnnfc = (ImageButton)findViewById(R.id.btnNFC);
         btnnfc.setOnClickListener(this);
+        ImageButton btnBarCode = (ImageButton)findViewById(R.id.btnBarcode);
+        btnBarCode.setOnClickListener(this);
     }
 
 
@@ -61,6 +67,9 @@ public class BookActivity extends ActionBarActivity implements View.OnClickListe
         startActivity( new Intent(this,BibScan.class));
     }
 
+    private void btnBarcode(){
+        startActivity( new Intent(this,BarCodeScan.class));
+    }
 
     public void onClick(View view) {
         switch (view.getId()){
@@ -75,6 +84,9 @@ public class BookActivity extends ActionBarActivity implements View.OnClickListe
                 break;
             case R.id.btnNFC:
                 btnNfc();
+                break;
+            case R.id.btnBarcode:
+                btnBarcode();
                 break;
         }
 
