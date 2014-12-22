@@ -6,13 +6,18 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -25,6 +30,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,6 +51,7 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        setTitle("Library Search");
 
         // Show the back button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -130,16 +139,91 @@ public class SearchActivity extends ActionBarActivity {
             }
         }
 
+
         @Override
         protected void onPostExecute(final String success) {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-            Intent intent = new Intent(getApplicationContext(), BookResultActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, success);
-            startActivity(intent);
+            String json = success;
+            //Intent intent = new Intent(getApplicationContext(), BookResultActivity.class);
+            //intent.putExtra(EXTRA_MESSAGE, success);
+            //startActivity(intent);
+            if (json != null) {
+                try {
+                    final String TITEL = "titel";
+                    final String ISBN = "isbn";
+                    final String LANGUAGE = "language";
+                    final String YEAR = "year";
+                    final String AUTHOR1 = "firstname";
+                    final String AUTHOR = "lastname";
+                    final String SHELF = "shelfName";
+                    final String DESC = "description";
 
 
+                    List valueList = new ArrayList<String>();
+
+                    JSONObject bookJson = new JSONObject(json);
+                    JSONArray jArr = bookJson.getJSONArray("book");
+
+                    for (int i = 0; i < jArr.length() - 1; i++) {
+
+                        JSONObject obj = jArr.getJSONObject(i);
+                        valueList.add(obj.getString(TITEL) + ", " +
+                                        obj.getString(ISBN) + ", " +
+                                        obj.getString(LANGUAGE) + ", " +
+                                        obj.getString(YEAR) + ", " +
+                                        obj.getString(AUTHOR1) + ", " +
+                                        obj.getString(AUTHOR) + ", " +
+                                        obj.getString(SHELF) + ", " +
+                                        obj.getString(DESC)
+
+                        );
+                    }
+                    ListAdapter adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, valueList);
+                    final ListView lv = (ListView)findViewById(R.id.searchList);
+
+
+                    //int r = getResources().getIdentifier("schwarz", "drawable", "com.example.goertz.libraryapp");
+                    //lv.setBackgroundResource(r);
+                    lv.setAdapter(adapter);
+                    lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            String info = ((TextView) view).getText().toString();
+                            //Toast.makeText(BookResultActivity.this, "" + position + info, Toast.LENGTH_SHORT).show();
+
+                            String[] result = info.split(",");
+                            JSONObject jo = new JSONObject();
+
+
+                            try {
+                                jo.put("titel", result[0]);
+                                jo.put("isbn", result[1]);
+                                jo.put("language", result[2]);
+                                jo.put("year", result[3]);
+                                jo.put("firstname", result[4]);
+                                jo.put("lastname", result[5]);
+                                jo.put("shelfName", result[6]);
+                                jo.put("description", result[7]);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            Intent newActivity = new Intent(view.getContext(), BookDetails.class);
+
+                            newActivity.putExtra(BibScan.EXTRA_MESSAGE,jo.toString());
+                            //Log.e(LOG_TAG, text);
+                            startActivity(newActivity);
+
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
 

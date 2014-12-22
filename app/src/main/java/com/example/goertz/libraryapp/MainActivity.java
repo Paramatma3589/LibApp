@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class MainActivity extends ActionBarActivity{
@@ -25,6 +25,7 @@ public class MainActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Technikum Wien App");
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -115,8 +116,18 @@ public class MainActivity extends ActionBarActivity{
 
         private void btnKalender(){
             Intent intent_Kalender = new Intent(super.getActivity(),KalenderActivity.class);
-            intent_Kalender.putExtra("title", "SchedulePlan");
-            intent_Kalender.putExtra("url", "https://cis.technikum-wien.at/cis/private/lvplan/stpl_week.php?pers_uid=wi14m056");
+            intent_Kalender.putExtra("title", "Schedule Plan");
+
+
+
+// You'll need to handle the exceptions thrown by execute()
+
+
+
+            //intent_Kalender.putExtra("url", "https://cis.technikum-wien.at/cis/private/lvplan/stpl_week.php?pers_uid=wi14m056");
+            intent_Kalender.putExtra("url", "http://libapp.byparamatma.com/cis.html");
+
+//            intent_Kalender.putExtra("url", "https://cis.technikum-wien.at/cis/private/lvplan/stpl_week.php?pers_uid=wi14m056");
             startActivity(intent_Kalender);
 
             //startActivity( new Intent(super.getActivity(),KalenderActivity.class));

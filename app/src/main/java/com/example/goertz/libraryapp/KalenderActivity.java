@@ -2,14 +2,29 @@ package com.example.goertz.libraryapp;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.AbstractHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
 
 
 public class KalenderActivity extends ActionBarActivity {
@@ -47,7 +62,7 @@ public class KalenderActivity extends ActionBarActivity {
         myWebView.setWebViewClient(new Callback());
 
         // When the calendar is shown, the user shouldn't be able to zoom in the WebView
-        if (!getTitle().equals("SchedulePlan")) {
+        if (!getTitle().equals("Schedule Plan")) {
             myWebSettings.setBuiltInZoomControls(true);
         }
 
@@ -55,8 +70,10 @@ public class KalenderActivity extends ActionBarActivity {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.acceptCookie();
 
+        new Connection();
         // Load the URL given to the WebView
         myWebView.loadUrl(bundle.getString("url"));
+
     }
 
     private class Callback extends WebViewClient {
@@ -109,5 +126,58 @@ public class KalenderActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class Connection extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object... arg0) {
+            connect();
+            return null;
+        }
+
+    }
+
+    private void connect() {
+            String username = "wi14m056";
+            String host = "cis.technikum-wien.at";
+            String password = "Aghisi10";
+
+            String urlBasePath = "http://" + username + ".cis.technikum-wien.at/cis/index_login.php";
+            String urlApiCall_FindAllRepositories = urlBasePath
+                    + "repositories.xml";
+
+            try {
+                HttpClient client = new DefaultHttpClient();
+
+                AuthScope as = new AuthScope(host, 443);
+                UsernamePasswordCredentials upc = new UsernamePasswordCredentials(
+                        username, password);
+
+                ((AbstractHttpClient) client).getCredentialsProvider()
+                        .setCredentials(as, upc);
+
+                BasicHttpContext localContext = new BasicHttpContext();
+
+                BasicScheme basicAuth = new BasicScheme();
+                localContext.setAttribute("preemptive-auth", basicAuth);
+
+                HttpHost targetHost = new HttpHost(host, 443, "https");
+
+                HttpGet httpget = new HttpGet(urlApiCall_FindAllRepositories);
+                httpget.setHeader("Content-Type", "application/xml");
+
+                HttpResponse response = client.execute(targetHost, httpget,
+                        localContext);
+
+                HttpEntity entity = response.getEntity();
+                Object content = EntityUtils.toString(entity);
+
+                Log.d("TEST", "OK: " + content.toString());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("TESt", "Error: " + e.getMessage());
+            }
     }
 }

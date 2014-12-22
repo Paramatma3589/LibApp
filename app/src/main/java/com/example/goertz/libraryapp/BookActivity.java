@@ -7,10 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 
 public class BookActivity extends ActionBarActivity implements View.OnClickListener {
@@ -18,6 +14,7 @@ public class BookActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Library");
         setContentView(R.layout.book);
         ImageButton btninfo = (ImageButton)findViewById(R.id.btnInfo);
         btninfo.setOnClickListener(this);

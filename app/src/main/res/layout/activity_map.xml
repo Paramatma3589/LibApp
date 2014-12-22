@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.goertz.libraryapp.MapActivity"
+    tools:context="com.example.goertz.libraryapp.ContactActivity"
     android:background="@drawable/back">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +15,94 @@
         android:orientation="vertical"
         android:padding="15dp" >
 
-    <TextView
-        android:text="@string/hello_world"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="1.0" >
+
+            <TextView
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#666666"
+                android:gravity="center"
+                android:padding="5dip"
+                android:text="Search for a Room"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip" >
+
+                <EditText
+                    android:id="@+id/BibEditSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="Search"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textColorHint="#DDDDDD" >
+
+                    <requestFocus android:layout_width="wrap_content" >
+                    </requestFocus>
+                </EditText>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PLACEHOLDER" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/InnerRelativeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            android:id="@+id/floorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#666666"
+            android:text="2. Stock"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/roomText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_toLeftOf="@id/floorText"
+            android:layout_alignParentBottom="true"
+            android:background="#666666"
+            android:text="Al-Room"
+            android:textColor="#FFFFFF" />
+        <TextView
+            android:id="@+id/PeopleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#666666"
+            android:text="1212People"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
 </RelativeLayout>

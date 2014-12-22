@@ -15,63 +15,54 @@
         android:orientation="vertical"
         android:padding="15dp" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/BookSearch"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#444444"
-            android:padding="10dp"
-            android:text="Search"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFEEEE"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dip"
+            android:weightSum="1.0" >
 
         <TextView
-            android:id="@+id/BibHiddenSearch"
-            android:layout_width="wrap_content"
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/BookSearch"
-            android:layout_alignRight="@+id/BookSearch"
-            android:layout_below="@+id/BookSearch"
             android:background="#666666"
-            android:padding="10dp" />
-        <EditText
-            android:id="@+id/BibEditSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/FeedbackTextEmail"
-            android:layout_alignLeft="@+id/BibHiddenSearch"
-            android:layout_alignRight="@+id/BibHiddenSearch"
-            android:layout_below="@+id/BookSearch"
-            android:background="@null"
-            android:hint="TITEL/ISBN/YEAR/..."
-            android:ems="10"
-            android:inputType="text"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:textColor="#FFFFFF" >
+            android:gravity="center"
+            android:padding="5dip"
+            android:text="Searching for Book or ISBN."
+            android:textColor="#FFFFFF" />
 
-            <requestFocus />
-        </EditText>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip" >
 
+                <EditText
+                    android:id="@+id/BibEditSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:hint="TITEL/ISBN/YEAR/..."
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textColorHint="#DDDDDD" >
+
+                    <requestFocus android:layout_width="wrap_content" >
+                    </requestFocus>
+                </EditText>
 
         <Button
             android:id="@+id/FeedbackButton"
             style="@style/AppTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/BibHiddenSearch"
-            android:layout_alignRight="@+id/BibHiddenSearch"
-            android:layout_below="@+id/BibHiddenSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="20dp"
             android:background="#444444"
             android:onClick="sendSearch"
@@ -80,6 +71,18 @@
             android:textColor="#FFEEEE"
             android:textStyle="bold" />
 
-    </RelativeLayout>
+            <ListView
+                android:scrollbars="horizontal"
+                    android:id="@+id/searchList"
+                    android:layout_marginTop="10pt"
+                    android:background="#444444"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    android:divider="@null"
+                    >
+            </ListView>
+            </LinearLayout>
+    </LinearLayout>
         </LinearLayout>
 </RelativeLayout>

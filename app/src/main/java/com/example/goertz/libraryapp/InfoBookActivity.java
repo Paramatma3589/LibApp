@@ -14,6 +14,7 @@ public class InfoBookActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_book);
+        setTitle("Library Information");
         TextView txtcontact = (TextView)findViewById(R.id.bibContact);
         TextView txtopen = (TextView)findViewById(R.id.bibOpeningTime);
         txtopen.setText(Html.fromHtml("<h1>Opening hours:</h1>"+

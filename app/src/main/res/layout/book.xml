@@ -65,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBookMap"
                 android:src="@drawable/map"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
                 android:background="#00000000"
                 />
 

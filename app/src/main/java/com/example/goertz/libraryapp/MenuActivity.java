@@ -23,6 +23,7 @@ public class MenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kalender);
+        setTitle("Mensa Menu");
 
         // Show the back button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

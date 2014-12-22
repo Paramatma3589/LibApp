@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 public class BookDetails extends ActionBarActivity {
 
     private final String LOG_TAG = FeedbackActivity.class.getSimpleName();
+    public final static String EXTRA_MESSAGE = "MESSAGE";
     TextView titleText;
     TextView authorText;
     TextView isbnText;
@@ -26,6 +28,7 @@ public class BookDetails extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Book Details");
         setContentView(R.layout.activity_book_details);
         titleText = (TextView) findViewById(R.id.titleText);
         authorText = (TextView) findViewById(R.id.authorText);
@@ -51,6 +54,14 @@ public class BookDetails extends ActionBarActivity {
 
 
     }
+
+    public void ShowBookMap(View view) {
+
+        Intent intent = new Intent(getApplicationContext(), BookMapActivity.class);
+        intent.putExtra(EXTRA_MESSAGE, shelfText.getText());
+        startActivity(intent);
+    }
+
     private void getJsonDate(String json)
         throws JSONException {
             final String TITEL = "titel";

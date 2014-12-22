@@ -45,6 +45,7 @@ public class FeedbackActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        setTitle("Send Feedback");
 
         // Show the back button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

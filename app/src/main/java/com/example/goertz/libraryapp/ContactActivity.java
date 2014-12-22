@@ -47,6 +47,7 @@ public class ContactActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        setTitle("Search Contact");
 
         // Show the back button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

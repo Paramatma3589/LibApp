@@ -52,7 +52,7 @@ public class BibScan extends Activity {
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
+        setTitle("NFC Scan");
         setContentView(R.layout.activity_bib_scan);
         mTextView = (TextView) findViewById(R.id.info);
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -190,15 +190,9 @@ public class BibScan extends Activity {
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }
-
-
             Intent intent = new Intent(getApplicationContext(), BookDetails.class);
             intent.putExtra(EXTRA_MESSAGE, success);
             startActivity(intent);
-
-
-           // Log.v(LOG_TAG, "RESULT " + success);
-           //mTextView.setText(success);
         }
 
         protected String doInBackground(final String... urls) {
