@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class BookMapActivity extends ActionBarActivity {
 
+    public static String bookID;
     TextView test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +18,11 @@ public class BookMapActivity extends ActionBarActivity {
         setContentView(R.layout.activity_book_map);
         setTitle("Library Map");
         Intent intent = getIntent();
-        String message = intent.getStringExtra(BookDetails.EXTRA_MESSAGE);
-        test = (TextView) findViewById(R.id.test);
-        test.setText(message);
-
+        //bookID= "418";
+        bookID = intent.getStringExtra(BookDetails.EXTRA_MESSAGE);
+        //test = (TextView) findViewById(R.id.test);
+        //test.setText(bookID);
+        setContentView(new drawShelf(this));
     }
 
 

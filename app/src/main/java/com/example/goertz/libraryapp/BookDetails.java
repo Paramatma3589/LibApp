@@ -25,6 +25,8 @@ public class BookDetails extends ActionBarActivity {
     TextView yearText;
     TextView shelfText;
     TextView detailText;
+    String self;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,17 +50,13 @@ public class BookDetails extends ActionBarActivity {
                 e.printStackTrace();
             }
         }
-        else{
-
-        }
-
-
     }
 
     public void ShowBookMap(View view) {
 
         Intent intent = new Intent(getApplicationContext(), BookMapActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, shelfText.getText());
+
+        intent.putExtra(EXTRA_MESSAGE, self.trim());
         startActivity(intent);
     }
 
@@ -75,7 +73,7 @@ public class BookDetails extends ActionBarActivity {
 
         Log.e(LOG_TAG, json);
         JSONObject bookJson = new JSONObject(json);
-
+        self = bookJson.getString(SHELF);
         titleText.setText(bookJson.getString(TITEL));
         isbnText.setText("ISBN: " +bookJson.getString(ISBN));
         languageText.setText("Language: " +bookJson.getString(LANGUAGE));
