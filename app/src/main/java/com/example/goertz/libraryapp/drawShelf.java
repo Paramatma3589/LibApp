@@ -57,7 +57,7 @@ public class drawShelf extends View {
                 float w = Float.parseFloat(parts[3]);  //Element 4
                 float d = Float.parseFloat(parts[4]);  //Element 5
                 //Log.e("","wight: "+width_factor+"high: "+height_factor);
-                rect.set(x * width_factor, y * height_factor, w * width_factor, d * height_factor);
+                rect.set(x * width_factor, (y+1) * height_factor, w * width_factor, (d+1) * height_factor);
                 //Shelf where the book is placed
                 if (id == bookID) {
                     paint.setColor(Color.RED);

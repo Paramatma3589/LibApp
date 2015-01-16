@@ -1,18 +1,58 @@
 package com.example.goertz.libraryapp;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 
 public class MapActivity extends ActionBarActivity {
+    EditText searchEdit;
+    drawFH fhview;
+    TextView person;
+    TextView room;
+    TextView floor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setTitle("Technikum Wien Map");
+        fhview = new drawFH(this);
+        FrameLayout a = (FrameLayout) findViewById(R.id.viewMapFH);
+        a.addView(fhview);
+        searchEdit = (EditText) findViewById(R.id.SearchRoom);
+        person = (TextView) findViewById(R.id.PeopleText);
+        room = (TextView) findViewById(R.id.roomText);
+        floor = (TextView) findViewById(R.id.floorText);
+
+
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                // Get the input of the search field and load new results
+                String search = searchEdit.getText().toString();
+                fhview.setSearchroom(search);
+
+                fhview.invalidate();
+                room.setText(fhview.getRoom());
+                floor.setText(fhview.getFloor());
+
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+        });
     }
 
 
