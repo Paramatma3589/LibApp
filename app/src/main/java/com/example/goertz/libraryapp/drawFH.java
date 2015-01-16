@@ -17,21 +17,6 @@ public class drawFH extends View {
 
     Paint paint = new Paint();
     String searchroom;
-    String person= "";
-    String floor= "";
-    String room= "";
-
-    public String getPerson() {
-        return person;
-    }
-
-    public String getFloor() {
-        return floor;
-    }
-
-    public String getRoom() {
-        return room;
-    }
 
     public void setSearchroom(String searchroom) {
         this.searchroom = searchroom;
@@ -84,10 +69,9 @@ public class drawFH extends View {
                 String[] parts = nextShelf.split(","); //Separator
                 if (parts[0].equals(search)) {
                     floorSearch = parts[1];
-                    room = parts[2];
-                    System.out.println("ANZEIGEN: " +parts[1]);
-                    floor = parts[1];
-                    person = parts[8];
+                    MapActivity.room.setText(parts[2]);
+                    MapActivity.floor.setText(parts[1]);
+                    MapActivity.person.setText(parts[8] + " People");
                 }
                 fhmapClass f1 = new fhmapClass(parts[0], parts[1], parts[2], parts[3], Float.parseFloat(parts[4]),
                         Float.parseFloat(parts[5]), Float.parseFloat(parts[6]), Float.parseFloat(parts[7]), Integer.parseInt(parts[8]));
@@ -101,7 +85,7 @@ public class drawFH extends View {
                     if(fhmap.get(j).getRaumName().equals("FH")) {
                         //factor FH
                         width = 130; // breite in Meter
-                        height = 265; //länge/tiefe in Meter
+                        height = 305; //länge/tiefe in Meter
                         width_factor = canvas.getWidth() / width;     //faktor 1m physisch --> x Einheiten im Canvas
                         height_factor = canvas.getHeight() / height;  //faktor 1m physisch --> x Einheiten im Canvas
 
@@ -110,10 +94,13 @@ public class drawFH extends View {
                         float w = fhmap.get(j).getW();
                         float d = fhmap.get(j).getD();
 
+                        MapActivity.room.setText("");
+                        MapActivity.floor.setText("");
+                        MapActivity.person.setText("");
+
                         if (fhmap.get(j).getFloor().equals("Haus_A")) {
                             paint.setColor(Color.BLUE);
                             paint.setStyle(Paint.Style.FILL);
-
 
                             //PC Terminal
                         } else if (fhmap.get(j).getFloor().equals("Haus_B")) {
@@ -134,11 +121,11 @@ public class drawFH extends View {
                         rect.set(x * width_factor, y * height_factor, w * width_factor, d * height_factor);
                         canvas.drawRect(rect, paint);
                         paint.setColor(Color.RED);
-                        paint.setTextSize(20);
+                        paint.setTextSize(40);
                         if(!fhmap.get(j).getFloor().equals("Bruecke"))
                         {
 
-                            canvas.drawText(fhmap.get(j).getFloor(), ((w - x) / 2 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
+                            canvas.drawText(fhmap.get(j).getFloor(), ((w - x) / 3 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
                         }
 
 
@@ -155,23 +142,23 @@ public class drawFH extends View {
                     float y = fhmap.get(j).getY();
                     float w = fhmap.get(j).getW();
                     float d = fhmap.get(j).getD();
-                    //person = fhmap.get(j).getPersonen();
 
                     rect.set(x * width_factor, y * height_factor, w * width_factor, d * height_factor);
                     if (!fhmap.get(j).getName().equals("Stockwerk")) {
                         if(fhmap.get(j).getRaumName().equals(search)){
-                            paint.setTextSize(20);
+                            paint.setTextSize(30);
                             paint.setColor(Color.RED);
                             paint.setStyle(Paint.Style.FILL);
                             canvas.drawRect(rect, paint);
                             paint.setColor(Color.BLACK);
 
-                            canvas.drawText(fhmap.get(j).getRaumName(), ((w - x) / 2 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
+                            canvas.drawText(fhmap.get(j).getRaumName(), ((w - x) / 3 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
                         }else {
-                            paint.setTextSize(20);
+                            paint.setTextSize(30);
                             paint.setColor(Color.BLACK);
                             paint.setStyle(Paint.Style.STROKE);
-                            canvas.drawText(fhmap.get(j).getRaumName(), ((w - x) / 2 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
+                            paint.setStrokeWidth(2);
+                            canvas.drawText(fhmap.get(j).getRaumName(), ((w - x) / 3 + x) * width_factor, ((d - y) / 2 + y) * height_factor, paint);
                             canvas.drawRect(rect, paint);
 
                         }
@@ -179,6 +166,7 @@ public class drawFH extends View {
                     else{
                         paint.setColor(Color.BLACK);
                         paint.setStyle(Paint.Style.STROKE);
+                        paint.setStrokeWidth(2);
                         canvas.drawRect(rect, paint);
                     }
                 }

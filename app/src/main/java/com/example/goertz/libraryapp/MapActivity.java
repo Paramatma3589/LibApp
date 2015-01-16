@@ -14,9 +14,9 @@ import android.widget.TextView;
 public class MapActivity extends ActionBarActivity {
     EditText searchEdit;
     drawFH fhview;
-    TextView person;
-    TextView room;
-    TextView floor;
+    public static TextView person;
+    public static TextView room;
+    public static TextView floor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +37,7 @@ public class MapActivity extends ActionBarActivity {
                 // Get the input of the search field and load new results
                 String search = searchEdit.getText().toString();
                 fhview.setSearchroom(search);
-
                 fhview.invalidate();
-                room.setText(fhview.getRoom());
-                floor.setText(fhview.getFloor());
-
-
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count,
